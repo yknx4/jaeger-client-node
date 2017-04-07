@@ -78,11 +78,6 @@ var SpanContext = function () {
 
 
     _createClass(SpanContext, [{
-        key: 'unsetDeferredSampling',
-        value: function unsetDeferredSampling() {
-            this._flags &= ~constants.DEFERRED_SAMPLING_MASK;
-        }
-    }, {
         key: 'finalizeSampling',
         value: function finalizeSampling() {
             this._samplingFinalized = true;
@@ -228,11 +223,6 @@ var SpanContext = function () {
         key: 'isValid',
         get: function get() {
             return !!((this._traceId || this._traceIdStr) && (this._spanId || this._spanIdStr));
-        }
-    }, {
-        key: 'isDeferredSampling',
-        get: function get() {
-            return (this._flags & constants.DEFERRED_SAMPLING_MASK) === constants.DEFERRED_SAMPLING_MASK;
         }
     }], [{
         key: 'fromString',

@@ -175,6 +175,7 @@ export default class Tracer {
     * @return {Span} - a new Span object.
     **/
     startSpan(operationName: string, options: ?startSpanOptions): Span {
+        this._logger.info("Start span");
         // Convert options.childOf to options.references as needed.
         options = options || {};
         let references = options.references || [];
@@ -208,6 +209,7 @@ export default class Tracer {
         let ctx: SpanContext = new SpanContext();
         let internalTags: any = {};
         if (!parent || !parent.isValid) {
+            this._logger.info("Starting a new root span");
             let randomId = Utils.getRandom64();
             let flags = 0;
             if (this._sampler.isSampled(operationName, internalTags)) {
@@ -228,6 +230,7 @@ export default class Tracer {
             ctx.parentId = null;
             ctx.flags = flags;
         } else {
+            this._logger.info("Continuing a span: " + parent.traceId);
             ctx.traceId = parent.traceId;
             ctx.spanId = Utils.getRandom64();
             ctx.parentId = parent.spanId;

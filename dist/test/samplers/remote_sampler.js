@@ -128,7 +128,7 @@ describe('RemoteSampler', function () {
             remoteSampler._refreshSamplingStrategy();
         };
         server.addStrategy('service1', {
-            strategyType: 0,
+            strategyType: 'PROBABILISTIC',
             probabilisticSampling: {
                 samplingRate: 1.0
             }
@@ -143,7 +143,7 @@ describe('RemoteSampler', function () {
             done();
         };
         server.addStrategy('service1', {
-            strategyType: 1,
+            strategyType: 'RATE_LIMITING',
             rateLimitingSampling: {
                 maxTracesPerSecond: maxTracesPerSecond
             }
@@ -153,7 +153,7 @@ describe('RemoteSampler', function () {
 
     it('should set per-operation sampler', function (done) {
         server.addStrategy('service1', {
-            strategyType: 0,
+            strategyType: 'PROBABILISTIC',
             probabilisticSampling: {
                 samplingRate: 1.0
             },
@@ -182,7 +182,7 @@ describe('RemoteSampler', function () {
 
     it('should refresh periodically', function (done) {
         server.addStrategy('service1', {
-            strategyType: 0,
+            strategyType: 'PROBABILISTIC',
             probabilisticSampling: {
                 samplingRate: 0.777
             }

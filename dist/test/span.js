@@ -200,33 +200,6 @@ describe('span should', function () {
         _chai.assert.isOk(unnormalizedKey in _span2.default._getBaggageHeaderCache());
     });
 
-    describe('with deferred sampling', function () {
-        beforeEach(function () {
-            spanContext._flags = constants.DEFERRED_SAMPLING_MASK;
-        });
-        it('should not pass deferred sampling flag to child spans', function () {
-            var child = tracer.startSpan('child', { childOf: span.context() });
-            _chai.assert.notEqual(child.context.flags & constants.DEFERRED_SAMPLING_MASK, constants.DEFERRED_SAMPLING_MASK);
-            _chai.assert.isOk(child._spanContext.samplingFinalized);
-        });
-
-        it('should make a call to the underlying sampler and use the sampling decision when true', function () {
-            var mockSampler = _sinon2.default.mock(tracer._sampler);
-            mockSampler.expects('isSampled').withExactArgs('goodOperation', {}).returns(true);
-            var child = tracer.startSpan('goodOperation', { childOf: span.context() });
-            mockSampler.verify();
-            _chai.assert.isOk(child.context().isSampled());
-        });
-
-        it('should make a call to the underlying sampler and use the sampling decision when false', function () {
-            var mockSampler = _sinon2.default.mock(tracer._sampler);
-            mockSampler.expects('isSampled').withExactArgs('horridOperation', {}).returns(false);
-            var child = tracer.startSpan('horridOperation', { childOf: span.context() });
-            mockSampler.verify();
-            _chai.assert.isNotOk(child.context().isSampled());
-        });
-    });
-
     describe('adaptive sampling tests for span', function () {
         var options = [{ desc: 'sampled: ', sampling: true, reportedSpans: 1 }, { desc: 'unsampled: ', sampling: false, reportedSpans: 0 }];
         _lodash2.default.each(options, function (o) {
@@ -342,7 +315,7 @@ describe('span should', function () {
             tracer._sampler = new _probabilistic_sampler2.default(1.0);
 
             // The second cal lshould rename the operation name, but
-            // not re-sample the span.  This is because finalize was set
+            // not re-sample the span.  This is because finalize was set 
             // in the first 'setOperationName' call.
             span.setOperationName('new-span-two');
 
