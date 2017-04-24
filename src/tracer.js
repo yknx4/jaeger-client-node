@@ -267,9 +267,12 @@ export default class Tracer {
      * @param tags tags to be applied by the sampler
      */
     processDeferredSampling(ctx: SpanContext, operationName: string, tags: any) {
+        this._logger.info("Got a span with deferred sampling set " + ctx);
         if (ctx.isDeferredSampling) {
             if (this._sampler.isSampled(operationName, tags)) {
                 ctx._flags |= constants.SAMPLED_MASK;
+                this._logger.info("Sampled with deferred sampling set " + ctx);
+                process.stdout.write("Sampled a span with deferred sampling: " + ctx);
             } else {
                 ctx._flags &= ~constants.SAMPLED_MASK;
             }

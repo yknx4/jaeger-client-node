@@ -281,6 +281,7 @@ var Tracer = function () {
                 ctx.baggage = parent.baggage;
 
                 parent.finalizeSampling();
+                this.processDeferredSampling(ctx, operationName, internalTags);
                 ctx.finalizeSampling();
             }
 
@@ -288,8 +289,6 @@ var Tracer = function () {
         }
 
         /**
-        <<<<<<< HEAD
-        =======
          *  Makes a concrete sampling decision for the ctx span context based on information
          *  available to it's child span.
          *
@@ -317,7 +316,6 @@ var Tracer = function () {
         }
 
         /**
-        >>>>>>> 1e636ef... Add logging
          * Saves the span context into the carrier object for various formats, and encoders.
          *
          * @param  {SpanContext} spanContext - the SpanContext to inject into the
