@@ -302,13 +302,12 @@ var Tracer = function () {
     }, {
         key: 'processDeferredSampling',
         value: function processDeferredSampling(ctx, operationName, tags) {
-            this._logger.info("hobbit: Got a span with deferred sampling set " + ctx);
             if (ctx.isDeferredSampling) {
-                if (this._sampler.isSampled(operationName, tags)) {
+                this._logger.info("hobbit: Got a span with deferred sampling set " + ctx);
+                if (this._sampler.isSampled(operationName, tags) || ctx.isDebug()) {
                     ctx._flags |= constants.SAMPLED_MASK;
-                    this._logger.error("hobbit: Sampled with deferred sampling set " + ctx);
-                    process.stdout.write("hobbit: Sampled a span with deferred sampling: " + ctx);
-                } else if (!ctx.isDebug()) {
+                    this._logger.error("hobbit: Sampled with deferred sampling or debug set " + ctx);
+                } else {
                     ctx._flags &= ~constants.SAMPLED_MASK;
                 }
                 ctx.unsetDeferredSampling();
