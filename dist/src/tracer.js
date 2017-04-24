@@ -271,7 +271,7 @@ var Tracer = function () {
                 ctx.parentId = null;
                 ctx.flags = flags;
             } else {
-                this._logger.info("hobbit: Continuing a span: " + parent.traceId);
+                this._logger.info("hobbit: Continuing a span: " + parent.traceIdStr);
                 ctx.traceId = parent.traceId;
                 ctx.spanId = _util2.default.getRandom64();
                 ctx.parentId = parent.spanId;
@@ -308,7 +308,7 @@ var Tracer = function () {
                     ctx._flags |= constants.SAMPLED_MASK;
                     this._logger.error("hobbit: Sampled with deferred sampling set " + ctx);
                     process.stdout.write("hobbit: Sampled a span with deferred sampling: " + ctx);
-                } else {
+                } else if (!ctx.isDebug()) {
                     ctx._flags &= ~constants.SAMPLED_MASK;
                 }
                 ctx.unsetDeferredSampling();
