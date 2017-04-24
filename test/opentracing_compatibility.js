@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import apiCompatibilityChecks from 'opentracing/test/api_compatibility.js';
+import apiCompatibilityChecks from 'opentracing/lib/test/api_compatibility.js';
 import {assert} from 'chai';
 import ConstSampler from '../src/samplers/const_sampler.js';
 import InMemoryReporter from '../src/reporters/in_memory_reporter.js';

@@ -28,7 +28,7 @@ import RemoteSampler from './samplers/remote_sampler';
 import Metrics from './metrics/metrics';
 import Tracer from './tracer';
 import UDPSender from './reporters/udp_sender';
-import opentracing from 'opentracing';
+import * as opentracing from 'opentracing';
 import * as constants from './constants.js';
 
 let jaegerSchema = {

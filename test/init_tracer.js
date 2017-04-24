@@ -28,7 +28,7 @@ import ProbabilisticSampler from '../src/samplers/probabilistic_sampler';
 import RemoteSampler from '../src/samplers/remote_sampler';
 import RateLimitingSampler from '../src/samplers/ratelimiting_sampler';
 import {initTracer} from '../src/index.js';
-import opentracing from 'opentracing';
+import * as opentracing from 'opentracing';
 
 describe('initTracer', () => {
     it ('should initialize noop tracer when disable is set', () => {

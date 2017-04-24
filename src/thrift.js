@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 
 import fs from 'fs';
-import opentracing from 'opentracing';
+import * as opentracing from 'opentracing';
 import path from 'path';
 import {Thrift} from 'thriftrw';
 import Utils from './util.js';

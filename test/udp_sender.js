@@ -25,7 +25,7 @@ import dgram from 'dgram';
 import fs from 'fs';
 import path from 'path';
 import InMemoryReporter from '../src/reporters/in_memory_reporter.js';
-import opentracing from 'opentracing';
+import * as opentracing from 'opentracing';
 import Tracer from '../src/tracer.js';
 import {Thrift} from 'thriftrw';
 import ThriftUtils from '../src/thrift.js';
