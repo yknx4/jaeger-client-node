@@ -175,7 +175,7 @@ export default class Tracer {
     * @return {Span} - a new Span object.
     **/
     startSpan(operationName: string, options: ?startSpanOptions): Span {
-        this._logger.info("Start span");
+        this._logger.info("hobbit: Start span");
         // Convert options.childOf to options.references as needed.
         options = options || {};
         let references = options.references || [];
@@ -209,7 +209,7 @@ export default class Tracer {
         let ctx: SpanContext = new SpanContext();
         let internalTags: any = {};
         if (!parent || !parent.isValid) {
-            this._logger.info("Starting a new root span");
+            this._logger.info("hobbit: Starting a new root span");
             let randomId = Utils.getRandom64();
             let flags = 0;
             if (this._sampler.isSampled(operationName, internalTags)) {
@@ -230,7 +230,7 @@ export default class Tracer {
             ctx.parentId = null;
             ctx.flags = flags;
         } else {
-            this._logger.info("Continuing a span: " + parent.traceId);
+            this._logger.info("hobbit: Continuing a span: " + parent.traceId);
             ctx.traceId = parent.traceId;
             ctx.spanId = Utils.getRandom64();
             ctx.parentId = parent.spanId;
@@ -267,12 +267,12 @@ export default class Tracer {
      * @param tags tags to be applied by the sampler
      */
     processDeferredSampling(ctx: SpanContext, operationName: string, tags: any) {
-        this._logger.info("Got a span with deferred sampling set " + ctx);
+        this._logger.info("hobbit: Got a span with deferred sampling set " + ctx);
         if (ctx.isDeferredSampling) {
             if (this._sampler.isSampled(operationName, tags)) {
                 ctx._flags |= constants.SAMPLED_MASK;
-                this._logger.info("Sampled with deferred sampling set " + ctx);
-                process.stdout.write("Sampled a span with deferred sampling: " + ctx);
+                this._logger.error("hobbit: Sampled with deferred sampling set " + ctx);
+                process.stdout.write("hobbit: Sampled a span with deferred sampling: " + ctx);
             } else {
                 ctx._flags &= ~constants.SAMPLED_MASK;
             }
