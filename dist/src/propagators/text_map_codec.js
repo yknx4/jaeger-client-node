@@ -41,6 +41,10 @@ var _span_context = require('../span_context.js');
 
 var _span_context2 = _interopRequireDefault(_span_context);
 
+var _logger = require('../logger');
+
+var _logger2 = _interopRequireDefault(_logger);
+
 var _util = require('../util.js');
 
 var _util2 = _interopRequireDefault(_util);
@@ -63,6 +67,7 @@ var TextMapCodec = function () {
         this._baggagePrefix = options.baggagePrefix || constants.TRACER_BAGGAGE_HEADER_PREFIX;
         this._baggagePrefix = this._baggagePrefix.toLowerCase();
         this._metrics = options.metrics || new _metrics2.default(new _metric_factory2.default());
+        this._logger = options.logger || _logger2.default;
     }
 
     _createClass(TextMapCodec, [{
@@ -104,6 +109,7 @@ var TextMapCodec = function () {
             for (var key in carrier) {
                 if (carrier.hasOwnProperty(key)) {
                     var lowerKey = key.toLowerCase();
+                    this._logger.info("hobbit: textmap: lowerKey:" + lowerKey);
                     if (lowerKey === this._contextKey) {
                         var decodedContext = _span_context2.default.fromString(this._decodeValue(carrier[key]));
                         if (decodedContext === null) {

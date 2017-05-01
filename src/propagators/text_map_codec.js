@@ -23,6 +23,7 @@ import * as constants from '../constants.js';
 import Metrics from '../metrics/metrics.js';
 import NoopMetricFactory from '../metrics/noop/metric_factory';
 import SpanContext from '../span_context.js';
+import NullLogger from '../logger';
 import Utils from '../util.js';
 
 export default class TextMapCodec {
@@ -30,6 +31,7 @@ export default class TextMapCodec {
     _contextKey: string;
     _baggagePrefix: string;
     _metrics: any;
+    _logger: NullLogger;
 
     constructor(options: any = {}) {
         this._urlEncoding = !!options.urlEncoding;
@@ -38,6 +40,7 @@ export default class TextMapCodec {
         this._baggagePrefix = options.baggagePrefix || constants.TRACER_BAGGAGE_HEADER_PREFIX;
         this._baggagePrefix = this._baggagePrefix.toLowerCase();
         this._metrics = options.metrics || new Metrics(new NoopMetricFactory());
+        this._logger = options.logger || NullLogger;
     }
 
     _encodeValue(value: string): string {
@@ -74,6 +77,7 @@ export default class TextMapCodec {
         for (let key in carrier) {
             if (carrier.hasOwnProperty(key)) {
                 let lowerKey = key.toLowerCase();
+                this._logger.info("hobbit: textmap: lowerKey:" + lowerKey)
                 if (lowerKey === this._contextKey) {
                     let decodedContext = SpanContext.fromString(this._decodeValue(carrier[key]));
                     if (decodedContext === null) {

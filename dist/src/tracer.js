@@ -129,7 +129,8 @@ var Tracer = function () {
 
         var httpCodec = new _text_map_codec2.default({
             urlEncoding: true,
-            metrics: this._metrics
+            metrics: this._metrics,
+            logger: this._logger
         });
         this.registerInjector(opentracing.FORMAT_HTTP_HEADERS, httpCodec);
         this.registerExtractor(opentracing.FORMAT_HTTP_HEADERS, httpCodec);
@@ -175,6 +176,8 @@ var Tracer = function () {
         key: '_report',
         value: function _report(span) {
             this._metrics.spansFinished.increment(1);
+            this._logger.info("hobbit: reporting span: " + span.toString());
+            this._logger.info("hobbit: reporting spanId: " + span._spanContext.toString());
             this._reporter.report(span);
         }
     }, {
@@ -217,6 +220,9 @@ var Tracer = function () {
         key: 'startSpan',
         value: function startSpan(operationName, options) {
             this._logger.info("hobbit: Start span");
+            var stack = new Error().stack;
+            this._logger.info("hobbit: Start span stack trace: " + stack);
+
             // Convert options.childOf to options.references as needed.
             options = options || {};
             var references = options.references || [];

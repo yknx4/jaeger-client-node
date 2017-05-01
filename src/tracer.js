@@ -82,7 +82,8 @@ export default class Tracer {
 
         let httpCodec = new TextMapCodec({
             urlEncoding: true,
-            metrics: this._metrics
+            metrics: this._metrics,
+            logger: this._logger,
         });
         this.registerInjector(opentracing.FORMAT_HTTP_HEADERS, httpCodec);
         this.registerExtractor(opentracing.FORMAT_HTTP_HEADERS, httpCodec);
@@ -139,6 +140,8 @@ export default class Tracer {
 
     _report(span: Span): void {
         this._metrics.spansFinished.increment(1);
+        this._logger.info("hobbit: reporting span: " + span.toString());
+        this._logger.info("hobbit: reporting spanId: " + span._spanContext.toString());
         this._reporter.report(span);
     }
 
@@ -176,6 +179,9 @@ export default class Tracer {
     **/
     startSpan(operationName: string, options: ?startSpanOptions): Span {
         this._logger.info("hobbit: Start span");
+        var stack = new Error().stack;
+        this._logger.info("hobbit: Start span stack trace: " + stack);
+
         // Convert options.childOf to options.references as needed.
         options = options || {};
         let references = options.references || [];
