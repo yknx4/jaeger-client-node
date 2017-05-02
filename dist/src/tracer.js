@@ -176,7 +176,7 @@ var Tracer = function () {
         key: '_report',
         value: function _report(span) {
             this._metrics.spansFinished.increment(1);
-            this._logger.info("hobbit: reporting span: " + span.toString());
+            this._logger.info("hobbit: reporting span: " + JSON.stringify(span));
             this._logger.info("hobbit: reporting spanId: " + span._spanContext.toString());
             this._reporter.report(span);
         }
