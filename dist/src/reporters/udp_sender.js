@@ -44,7 +44,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var HOST = 'localhost';
-var PORT = 6832;
+var PORT = 6842;
 var UDP_PACKET_MAX_LENGTH = 65000;
 
 var UDPSender = function () {

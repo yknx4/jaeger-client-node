@@ -25,7 +25,7 @@ import path from 'path';
 import {Thrift} from 'thriftrw';
 
 const HOST = 'localhost';
-const PORT =  6832;
+const PORT =  6842;
 const UDP_PACKET_MAX_LENGTH = 65000;
 
 export default class UDPSender {
