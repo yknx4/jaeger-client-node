@@ -265,7 +265,7 @@ export default class Tracer {
      */
     processDeferredSampling(ctx: SpanContext, operationName: string, tags: any) {
         if (ctx.isDeferredSampling) {
-            if (this._sampler.isSampled(operationName, tags)) {
+            if (this._sampler.isSampled(operationName, tags) || ctx.isDebug()) {
                 ctx._flags |= constants.SAMPLED_MASK;
             } else {
                 ctx._flags &= ~constants.SAMPLED_MASK;
