@@ -54,6 +54,7 @@ export default class RemoteReporter {
     }
 
     report(span: Span): void {
+        this._logger.info(`RemoteReporter Reporting SpanContext ${span._spanContext.toString()}`);
         let response: SenderResponse = this._sender.append(ThriftUtils.spanToThrift(span));
         if (response.err) {
             this._logger.error('Failed to append spans in reporter.');

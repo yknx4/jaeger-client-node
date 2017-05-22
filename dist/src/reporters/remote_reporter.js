@@ -76,6 +76,7 @@ var RemoteReporter = function () {
     }, {
         key: 'report',
         value: function report(span) {
+            this._logger.info('RemoteReporter Reporting SpanContext ' + span._spanContext.toString());
             var response = this._sender.append(_thrift2.default.spanToThrift(span));
             if (response.err) {
                 this._logger.error('Failed to append spans in reporter.');
