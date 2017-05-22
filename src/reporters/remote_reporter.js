@@ -54,7 +54,18 @@ export default class RemoteReporter {
     }
 
     report(span: Span): void {
-        this._logger.info(`RemoteReporter Reporting SpanContext ${span._spanContext.toString()}`);
+        this._logger.info("hobbit: remoteReporter: reporting spanId: " + span._spanContext.toString());
+        this._logger.info(
+                "{\"hobbit_reported_span\": {\"SpanContext\":\"" + span._spanContext.toString()
+                + "\",\"OperationName\":\"" + span._operationName
+                + "\",\"Logs\":" + JSON.stringify(span._logs)
+                + ",\"Tags\":" + JSON.stringify(span._tags)
+                + ",\"Duration\":\"" + span._duration
+                + "\",\"StartTime\":\"" + span._startTime
+                + "\",\"References\":" + JSON.stringify(span._references)
+                + ",\"ParentId\":\"" + JSON.stringify(span.parentid)
+                + "\",\"Baggage\":" + JSON.stringify(Span._getBaggageHeaderCache())
+                + "}}");
         let response: SenderResponse = this._sender.append(ThriftUtils.spanToThrift(span));
         if (response.err) {
             this._logger.error('Failed to append spans in reporter.');

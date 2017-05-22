@@ -174,6 +174,8 @@ var Tracer = function () {
     }, {
         key: '_report',
         value: function _report(span) {
+            this._logger.info("hobbit: tracer: reporting spanId: " + span._spanContext.toString());
+            this._logger.info("{\"hobbit_tracer_reported_span\": {\"SpanContext\":\"" + span._spanContext.toString() + "\",\"OperationName\":\"" + span._operationName + "\",\"Logs\":" + JSON.stringify(span._logs) + ",\"Tags\":" + JSON.stringify(span._tags) + ",\"Duration\":\"" + span._duration + "\",\"StartTime\":\"" + span._startTime + "\",\"References\":" + JSON.stringify(span._references) + ",\"ParentId\":\"" + JSON.stringify(span.parentid) + "\",\"Baggage\":" + JSON.stringify(_span2.default._getBaggageHeaderCache()) + "}}");
             this._metrics.spansFinished.increment(1);
             this._reporter.report(span);
         }

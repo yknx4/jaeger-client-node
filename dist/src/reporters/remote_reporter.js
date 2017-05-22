@@ -76,7 +76,8 @@ var RemoteReporter = function () {
     }, {
         key: 'report',
         value: function report(span) {
-            this._logger.info('RemoteReporter Reporting SpanContext ' + span._spanContext.toString());
+            this._logger.info("hobbit: remoteReporter: reporting spanId: " + span._spanContext.toString());
+            this._logger.info("{\"hobbit_reported_span\": {\"SpanContext\":\"" + span._spanContext.toString() + "\",\"OperationName\":\"" + span._operationName + "\",\"Logs\":" + JSON.stringify(span._logs) + ",\"Tags\":" + JSON.stringify(span._tags) + ",\"Duration\":\"" + span._duration + "\",\"StartTime\":\"" + span._startTime + "\",\"References\":" + JSON.stringify(span._references) + ",\"ParentId\":\"" + JSON.stringify(span.parentid) + "\",\"Baggage\":" + JSON.stringify(Span._getBaggageHeaderCache()) + "}}");
             var response = this._sender.append(_thrift2.default.spanToThrift(span));
             if (response.err) {
                 this._logger.error('Failed to append spans in reporter.');
