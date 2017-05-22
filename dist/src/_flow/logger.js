@@ -1,4 +1,6 @@
-// @flow
+"use strict";
+
+;
 // Copyright (c) 2016 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,29 +20,4 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
-import Span from '../span.js';
-import NullLogger from '../logger.js';
-
-export default class LoggingReporter {
-    _logger: Logger;
-
-    constructor(logger: Logger) {
-        this._logger = logger || new NullLogger();
-    }
-
-    report(span: Span): void {
-        this._logger.info(`Reporting span ${JSON.stringify(span)}`);
-        this._logger.info(`Reporting spanContext ${span._spanContext.toString()}`);
-    }
-
-    name(): string {
-        return 'LoggingReporter';
-    }
-
-    close(callback: ?Function): void {
-        if (callback) {
-            callback();
-        }
-    }
-}
+//# sourceMappingURL=logger.js.map

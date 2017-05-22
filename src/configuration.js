@@ -18,21 +18,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import SpanContext from './span_context';
-import Span from './span';
-import ConstSampler from './samplers/const_sampler';
-import InMemoryReporter from './reporters/in_memory_reporter';
-import ProbabilisticSampler from './samplers/probabilistic_sampler';
-import RateLimitingSampler from './samplers/ratelimiting_sampler';
-import RemoteReporter from './reporters/remote_reporter';
-import CompositeReporter from './reporters/composite_reporter';
-import LoggingReporter from './reporters/logging_reporter';
-import RemoteSampler from './samplers/remote_sampler';
-import Metrics from './metrics/metrics';
-import Tracer from './tracer';
-import UDPSender from './reporters/udp_sender';
-import opentracing from 'opentracing';
-import * as constants from './constants.js';
+import ConstSampler from "./samplers/const_sampler";
+import ProbabilisticSampler from "./samplers/probabilistic_sampler";
+import RateLimitingSampler from "./samplers/ratelimiting_sampler";
+import RemoteReporter from "./reporters/remote_reporter";
+import CompositeReporter from "./reporters/composite_reporter";
+import LoggingReporter from "./reporters/logging_reporter";
+import RemoteSampler from "./samplers/remote_sampler";
+import Metrics from "./metrics/metrics";
+import Tracer from "./tracer";
+import UDPSender from "./reporters/udp_sender";
+import opentracing from "opentracing";
+import * as constants from "./constants.js";
 
 let jaegerSchema = {
     'id': '/jaeger',
@@ -106,9 +103,7 @@ export default class Configuration {
         let reporters = [];
         let senderConfig = {};
         if (config.reporter) {
-            if (config.reporter.logSpans) {
-                reporters.push(new LoggingReporter(options.logger));
-            }
+            reporters.push(new LoggingReporter(options.logger));
 
             if (config.reporter.flushIntervalMs) {
                 reporterConfig['bufferFlushInterval'] = config.reporter.flushIntervalMs;

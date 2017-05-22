@@ -1,4 +1,13 @@
-// @flow
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 // Copyright (c) 2016 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,28 +28,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Span from '../span.js';
-import NullLogger from '../logger.js';
-
-export default class LoggingReporter {
-    _logger: Logger;
-
-    constructor(logger: Logger) {
-        this._logger = logger || new NullLogger();
+var NoopGauge = function () {
+    function NoopGauge() {
+        _classCallCheck(this, NoopGauge);
     }
 
-    report(span: Span): void {
-        this._logger.info(`Reporting span ${JSON.stringify(span)}`);
-        this._logger.info(`Reporting spanContext ${span._spanContext.toString()}`);
-    }
+    _createClass(NoopGauge, [{
+        key: "update",
+        value: function update(value) {}
+    }]);
 
-    name(): string {
-        return 'LoggingReporter';
-    }
+    return NoopGauge;
+}();
 
-    close(callback: ?Function): void {
-        if (callback) {
-            callback();
-        }
-    }
-}
+exports.default = NoopGauge;
+//# sourceMappingURL=gauge.js.map
